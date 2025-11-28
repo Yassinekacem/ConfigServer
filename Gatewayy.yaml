@@ -1,1 +1,30 @@
-
+eureka:
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: http://localhost:4040/eureka
+spring:
+    cloud:
+        gateway:
+            routes:
+                - id : MSProjet
+                  uri: lb://MSProjet
+                  predicates:
+                  - Path=/projects/**
+                  filters:
+                  - RewritePath=/projects/(?<lien>.*), /${lien}
+                - id : MSTache
+                  uri: lb://MSTache
+                  predicates:
+                  - Path=/tache/**
+                  filters:
+                  - RewritePath=/tache/(?<lien>.*), /${lien}                
+management:
+    endpoints:
+        web:
+            exposure:
+                include: gateway
+    endpoint:
+        gateway:
+            access: read-only
