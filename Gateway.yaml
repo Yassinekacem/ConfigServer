@@ -4,22 +4,25 @@ eureka:
         fetchRegistry: true
         serviceUrl:
             defaultZone: http://localhost:4040/eureka
+
 spring:
     cloud:
         gateway:
             routes:
-                - id : MSProjet
-                  uri: lb://MSProjet
+                - id: MSExploitations
+                  uri: lb://MSExploitations
                   predicates:
-                  - Path=/projects/**
+                  - Path=/exploitations/**
                   filters:
-                  - RewritePath=/projects/(?<lien>.*), /${lien}
-                - id : MSTache
-                  uri: lb://MSTache
+                  - RewritePath=/exploitations/(?<lien>.*), /${lien}
+
+                - id: MSSupervision
+                  uri: lb://MSSupervision
                   predicates:
-                  - Path=/tache/**
+                  - Path=/supervision/**
                   filters:
-                  - RewritePath=/tache/(?<lien>.*), /${lien}                
+                  - RewritePath=/supervision/(?<lien>.*), /${lien}
+
 management:
     endpoints:
         web:
