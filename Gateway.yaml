@@ -1,33 +1,40 @@
 eureka:
-    client:
-        registerWithEureka: true
-        fetchRegistry: true
-        serviceUrl:
-            defaultZone: http://localhost:4040/eureka
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:4040/eureka
 
 spring:
-    cloud:
-        gateway:
-            routes:
-                - id: MSExploitations
-                  uri: lb://MSExploitations
-                  predicates:
-                  - Path=/exploitations/**
-                  filters:
-                  - RewritePath=/exploitations/(?<lien>.*), /${lien}
+  cloud:
+    gateway:
+      routes:
+        - id: MSExploitations
+          uri: lb://MSExploitations
+          predicates:
+            - Path=/exploitations/**
+          filters:
+            - RewritePath=/exploitations/(?<lien>.*), /${lien}
 
-                - id: MSSupervision
-                  uri: lb://MSSupervision
-                  predicates:
-                  - Path=/supervision/**
-                  filters:
-                  - RewritePath=/supervision/(?<lien>.*), /${lien}
+        - id: MSSupervision
+          uri: lb://MSSupervision
+          predicates:
+            - Path=/supervision/**
+          filters:
+            - RewritePath=/supervision/(?<lien>.*), /${lien}
+
+        - id: MSNotification
+          uri: lb://MSNotification
+          predicates:
+            - Path=/notification/**
+          filters:
+            - RewritePath=/notification/(?<lien>.*), /${lien}
 
 management:
-    endpoints:
-        web:
-            exposure:
-                include: gateway
-    endpoint:
-        gateway:
-            access: read-only
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+  endpoint:
+    gateway:
+      access: read-only
