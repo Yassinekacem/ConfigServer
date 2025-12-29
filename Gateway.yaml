@@ -51,5 +51,3 @@ management:
   endpoint:
     gateway:
       access: read-only
-    health:
-      show-details: always
