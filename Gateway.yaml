@@ -35,7 +35,7 @@ spring:
           predicates:
             - Path=/supervision/**
           filters:
-            - StripPrefix=1
+            - RewritePath=/supervision/?(?<lien>.*), /${lien}
 
         - id: MSNotification
           uri: lb://MSNotification
