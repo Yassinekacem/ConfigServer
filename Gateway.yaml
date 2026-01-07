@@ -13,7 +13,6 @@ spring:
           "[/**]":
             allowedOrigins:
               - "http://${FRONT_HOST:localhost}:${FRONT_PORT:3000}"
-              - "http://${FRONT_HOST:localhost}:32000"
             allowedMethods:
               - GET
               - POST
